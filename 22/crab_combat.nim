@@ -36,7 +36,10 @@ proc game(deck1: seq[int], deck2: seq[int]) =
 
 proc recursiveRound(deck1: var seq[int], deck2: var seq[int])
 
+var gameNum = 0
 proc recursiveGame(deck1: seq[int], deck2: seq[int], first: bool = false): bool =
+  echo "Game ", gameNum
+  gameNum += 1
   var
     d1 = deck1
     d2 = deck2
@@ -57,14 +60,20 @@ proc recursiveRound(deck1: var seq[int], deck2: var seq[int]) =
     c1 = deck1.popFirst
     c2 = deck2.popFirst
   var p1win: bool
+  echo deck1
+  echo deck2
+  echo c1
+  echo c2
   if c1 <= deck1.len and c2 <= deck2.len:
     p1win = recursiveGame(deck1[0..<c1], deck2[0..<c2])
   else:
     p1win = c1 > c2
 
   if p1win:
+    echo "Player 1 wins"
     deck1 = deck1 & @[c1, c2]
   else:
+    echo "Player 2 wins"
     deck2 = deck2 & @[c2, c1]
 
 ### SETUP ###
